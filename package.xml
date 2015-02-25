@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+    <name>Ongr_Sync</name>
+    <version>0.1.0</version>
+    <stability>devel</stability>
+    <channel>community</channel>
+    <extends/>
+    <summary>Data sync and user login save to cookie.</summary>
+    <description>Magento module for data sync and user login save to cookie for ongr projects.</description>
+    <notes>Initial release</notes>
+    <authors><author><name>ONGR team</name><user>ONGR</user><email>info@ongr.io</email></author></authors>
+    <date>2015-02-25</date>
+    <time>13:57:44</time>
+    <contents><target name="magecommunity"><dir name="Ongr"><dir name="Sync"><dir name="Model"><file name="CookieSync.php" hash="5c79db79c59206c8a2ecc140f2188021"/><file name="Observer.php" hash="612c33dd3ccc33f50abc869d2da53d28"/></dir><dir name="etc"><file name="config.xml" hash="b730025ae24c65c289d99a57abdddaa7"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Ongr_sync.xml" hash="63a04dd3887b6c064da7a8c3ef1e5c41"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>5.6.0</max></php></required></dependencies>
+</package>
