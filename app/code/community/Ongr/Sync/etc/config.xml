@@ -13,6 +13,11 @@
                 </class>
             </ongr_Sync>
         </models>
+        <helpers>
+            <ongr>
+                <class>Ongr_Sync_Helper</class>
+            </ongr>
+        </helpers>
         <events>
             <controller_action_predispatch>
                 <observers>
@@ -43,4 +48,35 @@
             </customer_login>
         </events>
     </global>
+    <default>
+        <ongr>
+            <ongr_group>
+                <ongr_domain/>
+            </ongr_group>
+        </ongr>
+    </default>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ongr>
+                                            <title>Ongr - All</title>
+                                        </ongr>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>

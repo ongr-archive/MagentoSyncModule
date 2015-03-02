@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <ongr translate="label" module="ongr/sync">
+            <label>Ongr Sync</label>
+            <sort_order>100</sort_order>
+        </ongr>
+    </tabs>
+    <sections>
+        <ongr translate="label" module="ongr/sync">
+            <label>Sync Options</label>
+            <tab>ongr</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+            <groups>
+                <ongr_group translate="label" module="ongr/sync">
+                    <label>Cookies</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+
+                    <fields>
+                        <ongr_domain translate="label comment">
+                            <label>Cookie domain</label>
+                            <comment>Domain used for cookies. Leave empty to use current domain.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ongr_domain>
+                    </fields>
+                </ongr_group>
+            </groups>
+        </ongr>
+    </sections>
+</config>

@@ -44,7 +44,7 @@ class Ongr_Sync_Model_CookieSync
             json_encode($products),
             self::COOKIE_LIFETIME ? time() + self::COOKIE_LIFETIME : 0,
             '/',
-            '',
+            Mage::getStoreConfig('ongr/ongr_group/ongr_domain'),
             false,
             false
         );
@@ -60,14 +60,12 @@ class Ongr_Sync_Model_CookieSync
      */
     public function syncCustomer($id, array $data = [])
     {
-        $data['id'] = $id;
-
         return setcookie(
             self::USER_DATA_COOKIE_NAME,
             json_encode(['id' => $id, 'data' => $data]),
             self::COOKIE_LIFETIME ? time() + self::COOKIE_LIFETIME : 0,
             '/',
-            '',
+            Mage::getStoreConfig('ongr/ongr_group/ongr_domain'),
             false,
             false
         );

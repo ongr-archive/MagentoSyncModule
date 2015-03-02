@@ -34,17 +34,10 @@ class Ongr_Sync_Model_Observer
     {
         /** @var Mage_Checkout_Model_Cart $cart */
         $cart = $observer->getData('cart');
-        /** @var Mage_Sales_Model_Quote_Item[] $items */
-        $items = $cart->getQuote()->getAllItems();
-
-        $products = [];
-        foreach ($items as $item) {
-            $products[$item->getProductId()] = $item->getQty();
-        }
 
         /** @var Ongr_Sync_Model_CookieSync $sync */
         $sync = Mage::getModel('ongr_Sync/CookieSync');
-        $sync->syncProducts($products);
+        $sync->syncProducts($this->getQuoteProducts($cart->getQuote()));
     }
 
     /**
@@ -60,6 +53,12 @@ class Ongr_Sync_Model_Observer
         /** @var Ongr_Sync_Model_CookieSync $sync */
         $sync = Mage::getModel('ongr_Sync/CookieSync');
         $sync->syncCustomer($customer->getId());
+
+        // User might had items in cart before logging out.
+        /** @var Mage_Sales_Model_Quote $quote */
+        $quote = Mage::getModel('sales/quote');
+        $quote->loadByCustomer($customer);
+        $sync->syncProducts($this->getQuoteProducts($quote));
     }
 
     /**
@@ -82,5 +81,25 @@ class Ongr_Sync_Model_Observer
 
             $cart->save();
         }
+    }
+
+    /**
+     * Extracts product list from cart.
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     *
+     * @return array
+     */
+    private function getQuoteProducts(Mage_Sales_Model_Quote $quote)
+    {
+        /** @var Mage_Sales_Model_Quote_Item[] $items */
+        $items = $quote->getAllItems();
+
+        $products = [];
+        foreach ($items as $item) {
+            $products[$item->getProductId()] = $item->getQty();
+        }
+
+        return $products;
     }
 }
