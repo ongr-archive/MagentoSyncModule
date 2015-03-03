@@ -9,9 +9,9 @@
     <description>Magento module for data sync and user login save to cookie for ongr projects.</description>
     <notes>Initial release</notes>
     <authors><author><name>ONGR team</name><user>ONGR</user><email>info@ongr.io</email></author></authors>
-    <date>2015-03-02</date>
-    <time>10:02:02</time>
-    <contents><target name="magecommunity"><dir name="Ongr"><dir name="Sync"><dir name="Helper"><file name="Sync.php" hash="1eb69d1061b6c257a9845c30889d9428"/></dir><dir name="Model"><file name="CookieSync.php" hash="3bd0c7b9e6a8d190bdde0bf62b371af2"/><file name="Observer.php" hash="75fce2e73736e6b0d1fa2a68ef9fe969"/></dir><dir name="etc"><file name="config.xml" hash="16bd1a46ea575d83b5f013e15a258929"/><file name="system.xml" hash="fad221e9e0461fa0d972c6f6fc1d41fc"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Ongr_sync.xml" hash="63a04dd3887b6c064da7a8c3ef1e5c41"/></dir></target></contents>
+    <date>2015-03-03</date>
+    <time>14:39:29</time>
+    <contents><target name="magecommunity"><dir name="Ongr"><dir name="Sync"><dir name="Helper"><file name="Sync.php" hash="1eb69d1061b6c257a9845c30889d9428"/></dir><dir name="Model"><file name="CookieSync.php" hash="3bd0c7b9e6a8d190bdde0bf62b371af2"/><file name="Observer.php" hash="df6556ab2669fd5328dcd4d9c9a58f50"/></dir><dir name="etc"><file name="config.xml" hash="16bd1a46ea575d83b5f013e15a258929"/><file name="system.xml" hash="fad221e9e0461fa0d972c6f6fc1d41fc"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Ongr_sync.xml" hash="63a04dd3887b6c064da7a8c3ef1e5c41"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.4.0</min><max>5.6.0</max></php></required></dependencies>
 </package>

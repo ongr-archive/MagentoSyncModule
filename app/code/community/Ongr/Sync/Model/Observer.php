@@ -15,6 +15,16 @@
 class Ongr_Sync_Model_Observer
 {
     /**
+     * Parameter name for syncing with magento.
+     */
+    const CART_DATA_SYNC_PARAM_NAME = 'OngrProducts';
+
+    /**
+     * Parameter name for syncing with magento.
+     */
+    const CART_BACK_URL_PARAM_NAME = 'OngrUrl';
+
+    /**
      * Action for controller_action_predispatch event.
      */
     public function controllerActionPredispatch()
@@ -68,18 +78,32 @@ class Ongr_Sync_Model_Observer
      */
     private function addProducts(Mage_Checkout_Model_Cart $cart)
     {
-        $data = Mage::app()->getRequest()->getParam('OngrProducts');
+        $products = Mage::app()->getRequest()->getParam(self::CART_DATA_SYNC_PARAM_NAME);
 
-        if (is_array($data)) {
+        if (is_array($products)) {
             $cart->truncate();
             $product = Mage::getModel('catalog/product');
 
-            foreach ($data as $productData) {
-                $product->load($productData['id']);
-                $cart->addProduct($product, $productData['qty']);
+            $errors = [];
+
+            foreach ($products as $id => $quantity) {
+                $product->load($id);
+                try {
+                    $cart->addProduct($product, $quantity);
+                } catch (Exception $e) {
+                    $errors[] = $id;
+                }
             }
 
             $cart->save();
+
+            $backUrl = Mage::app()->getRequest()->getParam(self::CART_BACK_URL_PARAM_NAME);
+            if ($backUrl) {
+                if ($errors) {
+                    $backUrl .= '?' . http_build_query(['e' => $errors]);
+                }
+                Mage::app()->getResponse()->setRedirect($backUrl);
+            }
         }
     }
 
