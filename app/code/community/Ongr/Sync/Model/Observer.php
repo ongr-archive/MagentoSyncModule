@@ -62,7 +62,12 @@ class Ongr_Sync_Model_Observer
 
         /** @var Ongr_Sync_Model_CookieSync $sync */
         $sync = Mage::getModel('ongr_Sync/CookieSync');
-        $sync->syncCustomer($customer->getId());
+
+        $data = $customer->getData();
+        $data['id'] = $customer->getId();
+        unset($data['password_hash']);
+
+        $sync->syncCustomer($data);
 
         // User might had items in cart before logging out.
         /** @var Mage_Sales_Model_Quote $quote */
@@ -82,12 +87,11 @@ class Ongr_Sync_Model_Observer
 
         if (is_array($products)) {
             $cart->truncate();
-            $product = Mage::getModel('catalog/product');
-
             $errors = [];
 
             foreach ($products as $id => $quantity) {
-                $product->load($id);
+                /** @var Mage_Catalog_Model_Product $product */
+                $product = Mage::getModel('catalog/product')->load($id);
                 try {
                     $cart->addProduct($product, $quantity);
                 } catch (Exception $e) {

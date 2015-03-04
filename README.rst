@@ -9,8 +9,7 @@ Module saves data in cookies ``ongr_cart`` and ``ongr_user`` in json format.
 cart where array key is a product id and value is the amount of products. Cookie is updated every time cart is saved or
 user logs in.
 
-``ongr_user`` contains information about user currently logged in. It is object with properties ``id`` and
-``data``, where id is customer id and data is associative array of customer properties.
+``ongr_user`` contains information about user currently logged in. It is an associative array of customer properties.
 
 Also this modules gives ability to update cart from anywhere.
 
