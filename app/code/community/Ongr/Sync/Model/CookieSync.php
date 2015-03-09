@@ -20,7 +20,7 @@ class Ongr_Sync_Model_CookieSync
     const CART_DATA_COOKIE_NAME = 'ongr_cart';
 
     /**
-     * Name of the cookie where cart data is saved.
+     * Name of the cookie where user data is saved.
      */
     const USER_DATA_COOKIE_NAME = 'ongr_user';
 
@@ -53,16 +53,15 @@ class Ongr_Sync_Model_CookieSync
     /**
      * Saves customer data to cookie.
      *
-     * @param int   $id
      * @param array $data
      *
      * @return bool
      */
-    public function syncCustomer($id, array $data = [])
+    public function syncCustomer(array $data = [])
     {
         return setcookie(
             self::USER_DATA_COOKIE_NAME,
-            json_encode(['id' => $id, 'data' => $data]),
+            json_encode($data),
             self::COOKIE_LIFETIME ? time() + self::COOKIE_LIFETIME : 0,
             '/',
             Mage::getStoreConfig('ongr/ongr_group/ongr_domain'),

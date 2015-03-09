@@ -15,6 +15,16 @@
 class Ongr_Sync_Model_Observer
 {
     /**
+     * Parameter name for syncing with magento.
+     */
+    const CART_DATA_SYNC_PARAM_NAME = 'OngrProducts';
+
+    /**
+     * Parameter name for syncing with magento.
+     */
+    const CART_BACK_URL_PARAM_NAME = 'OngrUrl';
+
+    /**
      * Action for controller_action_predispatch event.
      */
     public function controllerActionPredispatch()
@@ -41,18 +51,30 @@ class Ongr_Sync_Model_Observer
     }
 
     /**
-     * Action for customer_login event.
+     * Action for customer_login, customer_logout event and customer_save_after.
      *
      * @param Varien_Event_Observer $observer
      */
-    public function customerLogin(Varien_Event_Observer $observer)
+    public function customerUpdate(Varien_Event_Observer $observer)
     {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getData('customer');
 
+        /** @var Varien_Event $event */
+        $event = $observer->getData('event');
+
         /** @var Ongr_Sync_Model_CookieSync $sync */
         $sync = Mage::getModel('ongr_Sync/CookieSync');
-        $sync->syncCustomer($customer->getId());
+
+        if ($event->getName() == 'customer_logout') {
+            $data = [];
+        } else {
+            $data = $customer->getData();
+            $data['id'] = $customer->getId();
+            unset($data['password_hash']);
+        }
+
+        $sync->syncCustomer($data);
 
         // User might had items in cart before logging out.
         /** @var Mage_Sales_Model_Quote $quote */
@@ -68,18 +90,31 @@ class Ongr_Sync_Model_Observer
      */
     private function addProducts(Mage_Checkout_Model_Cart $cart)
     {
-        $data = Mage::app()->getRequest()->getParam('OngrProducts');
+        $products = Mage::app()->getRequest()->getParam(self::CART_DATA_SYNC_PARAM_NAME);
 
-        if (is_array($data)) {
+        if (is_array($products)) {
             $cart->truncate();
-            $product = Mage::getModel('catalog/product');
+            $errors = [];
 
-            foreach ($data as $productData) {
-                $product->load($productData['id']);
-                $cart->addProduct($product, $productData['qty']);
+            foreach ($products as $id => $quantity) {
+                /** @var Mage_Catalog_Model_Product $product */
+                $product = Mage::getModel('catalog/product')->load($id);
+                try {
+                    $cart->addProduct($product, $quantity);
+                } catch (Exception $e) {
+                    $errors[] = $id;
+                }
             }
 
             $cart->save();
+
+            $backUrl = Mage::app()->getRequest()->getParam(self::CART_BACK_URL_PARAM_NAME);
+            if ($backUrl) {
+                if ($errors) {
+                    $backUrl .= '?' . http_build_query(['e' => $errors]);
+                }
+                Mage::app()->getResponse()->setRedirect($backUrl);
+            }
         }
     }
 

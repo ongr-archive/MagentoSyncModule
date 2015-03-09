@@ -9,8 +9,7 @@ Module saves data in cookies ``ongr_cart`` and ``ongr_user`` in json format.
 cart where array key is a product id and value is the amount of products. Cookie is updated every time cart is saved or
 user logs in.
 
-``ongr_user`` contains information about user currently logged in. It is object with properties ``id`` and
-``data``, where id is customer id and data is associative array of customer properties.
+``ongr_user`` contains information about user currently logged in. It is an associative array of customer properties.
 
 Also this modules gives ability to update cart from anywhere.
 
@@ -21,5 +20,7 @@ Reaching saved cookies is easy when ONGR is on the same domain as magento store,
 request. Domain of saved cookies can be configured in magento admin: system->configuration->ONGR SYNC->Sync Options.
 
 Updating magento cart from ONGR can be achieved by sending any request to magento with
-``OngrProducts`` parameter. ``OngrProducts`` should be array of products and each product should
-have ``id`` and ``qty`` keys which stores product id and quantity respectively.
+``OngrProducts`` parameter. ``OngrProducts`` should be array of products where key is product id and value is quantity.
+
+If ``OngrUrl`` parameter is provided module will redirect to that url after cart is updated or after successful login
+or logout.
