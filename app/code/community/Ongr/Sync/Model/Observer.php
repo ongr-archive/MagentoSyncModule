@@ -51,21 +51,28 @@ class Ongr_Sync_Model_Observer
     }
 
     /**
-     * Action for customer_login event.
+     * Action for customer_login, customer_logout event and customer_save_after.
      *
      * @param Varien_Event_Observer $observer
      */
-    public function customerLogin(Varien_Event_Observer $observer)
+    public function customerUpdate(Varien_Event_Observer $observer)
     {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getData('customer');
 
+        /** @var Varien_Event $event */
+        $event = $observer->getData('event');
+
         /** @var Ongr_Sync_Model_CookieSync $sync */
         $sync = Mage::getModel('ongr_Sync/CookieSync');
 
-        $data = $customer->getData();
-        $data['id'] = $customer->getId();
-        unset($data['password_hash']);
+        if ($event->getName() == 'customer_logout') {
+            $data = [];
+        } else {
+            $data = $customer->getData();
+            $data['id'] = $customer->getId();
+            unset($data['password_hash']);
+        }
 
         $sync->syncCustomer($data);
 

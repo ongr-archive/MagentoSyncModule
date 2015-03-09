@@ -17,6 +17,11 @@
             <ongr>
                 <class>Ongr_Sync_Helper</class>
             </ongr>
+            <customer>
+                <rewrite>
+                    <data>Ongr_Sync_Helper_Customer_Data</data>
+                </rewrite>
+            </customer>
         </helpers>
         <events>
             <controller_action_predispatch>
@@ -42,10 +47,28 @@
                     <ongr_Sync>
                         <class>Ongr_Sync_Model_Observer</class>
                         <type>singleton</type>
-                        <method>customerLogin</method>
+                        <method>customerUpdate</method>
                     </ongr_Sync>
                 </observers>
             </customer_login>
+            <customer_logout>
+                <observers>
+                    <ongr_Sync>
+                        <class>Ongr_Sync_Model_Observer</class>
+                        <type>singleton</type>
+                        <method>customerUpdate</method>
+                    </ongr_Sync>
+                </observers>
+            </customer_logout>
+            <customer_save_after>
+                <observers>
+                    <ongr_Sync>
+                        <class>Ongr_Sync_Model_Observer</class>
+                        <type>singleton</type>
+                        <method>customerUpdate</method>
+                    </ongr_Sync>
+                </observers>
+            </customer_save_after>
         </events>
     </global>
     <default>
@@ -79,4 +102,15 @@
             </resources>
         </acl>
     </adminhtml>
+    <frontend>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <ongr_sync before="Mage_Customer_AccountController">Ongr_Sync_Frontend_Customer</ongr_sync>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>
 </config>

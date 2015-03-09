@@ -3,15 +3,16 @@
     <name>Ongr_Sync</name>
     <version>0.1.0</version>
     <stability>devel</stability>
+    <license>-</license>
     <channel>community</channel>
     <extends/>
     <summary>Data sync and user login save to cookie.</summary>
     <description>Magento module for data sync and user login save to cookie for ongr projects.</description>
     <notes>Initial release</notes>
     <authors><author><name>ONGR team</name><user>ONGR</user><email>info@ongr.io</email></author></authors>
-    <date>2015-03-04</date>
-    <time>13:02:05</time>
-    <contents><target name="magecommunity"><dir name="Ongr"><dir name="Sync"><dir name="Helper"><file name="Sync.php" hash="1eb69d1061b6c257a9845c30889d9428"/></dir><dir name="Model"><file name="CookieSync.php" hash="b4b20fd8399ae15b8a1c2bed2da0f085"/><file name="Observer.php" hash="9b8302db206d8d6f9234c047499c70e4"/></dir><dir name="etc"><file name="config.xml" hash="16bd1a46ea575d83b5f013e15a258929"/><file name="system.xml" hash="fad221e9e0461fa0d972c6f6fc1d41fc"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Ongr_sync.xml" hash="63a04dd3887b6c064da7a8c3ef1e5c41"/></dir></target></contents>
+    <date>2015-03-09</date>
+    <time>11:49:52</time>
+    <contents><target name="magecommunity"><dir name="Ongr"><dir name="Sync"><dir name="Helper"><dir name="Customer"><file name="Data.php" hash="5e9254a09ad1e70ac8cae1423f958ebc"/></dir><file name="Sync.php" hash="1eb69d1061b6c257a9845c30889d9428"/></dir><dir name="Model"><file name="CookieSync.php" hash="b4b20fd8399ae15b8a1c2bed2da0f085"/><file name="Observer.php" hash="3aa2ce9d3df321a22b78fd1680755334"/></dir><dir name="controllers"><dir name="Frontend"><dir name="Customer"><file name="AccountController.php" hash="3da1fd5bbdc553dbcd05167d29bf6456"/></dir></dir></dir><dir name="etc"><file name="config.xml" hash="8a4f783ed33e3be79b2f5e14707773c1"/><file name="system.xml" hash="fad221e9e0461fa0d972c6f6fc1d41fc"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Ongr_sync.xml" hash="63a04dd3887b6c064da7a8c3ef1e5c41"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.4.0</min><max>5.6.0</max></php></required></dependencies>
 </package>
