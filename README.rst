@@ -20,7 +20,7 @@ Reaching saved cookies is easy when ONGR is on the same domain as magento store,
 request. Domain of saved cookies can be configured in magento admin: system->configuration->ONGR SYNC->Sync Options.
 
 Updating magento cart from ONGR can be achieved by sending any request to magento with
-``OngrProducts`` parameter. ``OngrProducts`` should be array of products where key is product id and value quantity.
+``OngrProducts`` parameter. ``OngrProducts`` should be array of products where key is product id and value is quantity.
 
 If ``OngrUrl`` parameter is provided module will redirect to that url after cart is updated or after successful login
 or logout.
