@@ -24,3 +24,5 @@ Updating magento cart from ONGR can be achieved by sending any request to magent
 
 If ``OngrUrl`` parameter is provided module will redirect to that url after cart is updated or after successful login
 or logout.
+
+.. note :: Do not forget to clean cache and session data (logout and login should be sufficient) after installing module.
